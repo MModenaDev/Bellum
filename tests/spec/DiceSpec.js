@@ -1,7 +1,7 @@
 describe('Dice', function () {
     var dice;
     beforeEach(function () {
-        dice = new Dice();
+       dice = new Dice();
     });
 
     describe("Result", function() {
@@ -19,7 +19,7 @@ describe('Dice', function () {
         });
     });
 
-    describe("Roll()", function() {
+    describe("roll()", function() {
         it("Should return a number", function() {
             expect(typeof(dice.roll())).toBe("number");
         });
