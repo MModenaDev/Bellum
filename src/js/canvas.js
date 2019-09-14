@@ -1,3 +1,6 @@
+/*
+    TODO: Image fix
+*/
 class drawCanvas {
     constructor() {
         this.ctx = document.getElementsByClassName('canvas')[0].getContext('2d');
@@ -5,7 +8,20 @@ class drawCanvas {
 
     draw(screen = "map") {
         this.drawBorder();
-        this.drawBackground();
+        switch (screen) {
+            case "menu":
+                this.drawFullBackground("../../src/images/hands.png");
+                break;
+            case "victory":
+                this.drawSmallBackground("../../src/images/flag.png");
+                break;
+            case "defeat":
+                this.drawSmallBackground("../../src/images/explosion.png");
+                break;
+            default:
+                this.drawFullBackground("../../src/images/map.png");
+                break;
+        };
     }
 
     clearAll() {
@@ -16,16 +32,23 @@ class drawCanvas {
         this.ctx.beginPath();
         this.ctx.lineWidth = 20;
         this.ctx.strokeStyle = "black";
-        this.ctx.rect(0, 0, 1000, 620);
-        this.ctx.stroke();
+        this.ctx.strokeRect(0, 0, 1020, 640);
         this.ctx.closePath();
     }
 
-    drawBackground(imageSource = "../images/map.png") {
-        let img = new Image();
-        img.src = imageSource; 
-        img.onload = () => {
-            this.ctx.drawImage(img, 0, 0, 1000, 620);
+    drawFullBackground(imageSource) {
+        let image = new Image();
+        image.src = imageSource;
+        image.onload = () => {
+            this.ctx.drawImage(image, 10, 10, 1000, 620);
+        };
+    }
+
+    drawSmallBackground(imageSource) {
+        let image = new Image();
+        image.src = imageSource;
+        image.onload = () => {
+            this.ctx.drawImage(image,360, 10, 300, 300);
         };
     }
 }

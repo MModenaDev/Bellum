@@ -14,6 +14,7 @@
 .header {
     font-size: 100px;
     text-align: center;
+    margin:10px;
 }
 
 section {
@@ -27,7 +28,7 @@ section {
 }
 
 .console {
-    width: 1000px;
+    width: 1020px;
     margin: auto;
     padding: 10px;
     border: 10px solid black;
