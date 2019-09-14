@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'Pixel';
+    src: url(../fonts/tight_pixel.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 50px;
+    font-family: "Pixel";
+}
+
+.header {
+    font-size: 100px;
+    text-align: center;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.canvas {
+    margin: auto;
+}
+
+.console {
+    width: 1000px;
+    margin: auto;
+    padding: 10px;
+    border: 10px solid black;
+}
