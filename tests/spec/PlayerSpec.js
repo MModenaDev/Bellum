@@ -1,4 +1,4 @@
-describe('Player - Bellum', function () {
+describe('Player', function () {
     let player;
     beforeEach(function () {
       player = new Player();
