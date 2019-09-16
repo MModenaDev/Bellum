@@ -7,7 +7,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-size: 50px;
+    font-size: 42px;
     font-family: "Pixel";
 }
 
@@ -27,9 +27,13 @@ section {
     margin: auto;
 }
 
-.console {
+.subMenu {
     width: 1020px;
     margin: auto;
     padding: 10px;
     border: 10px solid black;
+}
+
+.subMenu__paragraph {
+    margin: 10px;
 }

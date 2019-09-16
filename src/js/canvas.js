@@ -1,18 +1,21 @@
 class drawCanvas {
     constructor() {
-        this.ctx = document.getElementsByClassName('canvas')[0].getContext('2d');
+        this.canvas = document.getElementsByClassName('canvas')[0];
+        this.ctx = this.canvas.getContext('2d');
+        this.canvas.width = 1020;
+        this.canvas.height = 640;
         this.image = new Image();
     }
 
     clearAll() {
-        this.ctx.clearRect(0, 0, 1000, 620);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     drawBorder() {
         this.ctx.beginPath();
         this.ctx.lineWidth = 20;
         this.ctx.strokeStyle = "black";
-        this.ctx.strokeRect(0, 0, 1020, 640);
+        this.ctx.strokeRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.closePath();
     }
 
@@ -45,5 +48,9 @@ class drawCanvas {
             this.ctx.fillText("FUN", 615, 180);
             this.ctx.closePath();
         }
+    }
+
+    setCanvasHeight(h = 640) {
+        this.canvas.height = h;
     }
 }
