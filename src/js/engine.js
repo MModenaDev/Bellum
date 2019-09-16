@@ -68,7 +68,8 @@ document.onkeydown = (e) => {
                 screen = "map";
             };
             if(screen === "menu" && pill === "blue") {
-
+                subMenu.clear();
+                subMenu.problem();
             };
             break;
 

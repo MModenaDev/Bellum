@@ -22,7 +22,7 @@ class SubMenu {
         greet4.innerHTML = "In the (R)EAL mode you will experience the simulation most close to reality.";
         let greet5 = document.createElement("p");
         greet5.classList.toggle("subMenu__paragraph");
-        greet5.innerHTML = "Contrary to the first one, (F)UN mode is as unrealistic as it's fun and outrageous";
+        greet5.innerHTML = "Contrary to the first one, (F)UN mode is as unrealistic as it's fun and outrageous.";
         this.subMenu.appendChild(greet1);
         this.subMenu.appendChild(greet2);
         setTimeout(() => {
@@ -30,6 +30,17 @@ class SubMenu {
             this.subMenu.appendChild(greet3);
             this.subMenu.appendChild(greet4);
             this.subMenu.appendChild(greet5);
-        }, 15000);
+        }, 10000);
+    }
+
+    problem() {
+        let problem1 = document.createElement("p");
+        problem1.classList.toggle("subMenu__paragraph");
+        problem1.innerHTML = "Sorry for the trouble, but this mode is currently under development.";
+        let problem2 = document.createElement("p");
+        problem2.classList.toggle("subMenu__paragraph");
+        problem2.innerHTML = "Please choose another mode.";
+        this.subMenu.appendChild(problem1);
+        this.subMenu.appendChild(problem2);
     }
 }
