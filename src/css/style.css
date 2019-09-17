@@ -22,27 +22,17 @@
     justify-content: center;
 }
 
-.main {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.canvas {
-    margin: auto 10px auto auto;
-}
-
 .subMenu {
     width: 1020px;
-    margin: 10px 10px auto auto;
     padding: 10px;
     border: 10px solid black;
+    margin-top: 5px;
 }
 
 .lateralMenu {
-    /* display: none; */
+    display: none;
+    margin-left: 10px;
     width: 300px;
-    margin-right: auto;
     padding: 10px;
     border: 10px solid black;
 }

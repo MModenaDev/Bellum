@@ -1,8 +1,6 @@
 const canvas = new drawCanvas();
 const subMenu = new SubMenu();
-
-let pill = "red";
-let screen = "menu";
+const board = new Board();
 
 window.onload = function () {
     subMenu.clear();
