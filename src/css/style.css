@@ -17,19 +17,32 @@
     margin:10px;
 }
 
-section {
+.container {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .canvas {
-    margin: auto;
+    margin: auto 10px auto auto;
 }
 
 .subMenu {
     width: 1020px;
-    margin: auto;
+    margin: 10px 10px auto auto;
+    padding: 10px;
+    border: 10px solid black;
+}
+
+.lateralMenu {
+    /* display: none; */
+    width: 300px;
+    margin-right: auto;
     padding: 10px;
     border: 10px solid black;
 }

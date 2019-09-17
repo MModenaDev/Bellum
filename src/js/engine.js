@@ -29,7 +29,7 @@ document.onkeydown = (e) => {
         case 70: // F - choose blue pill (fun) on menu
             pill = "blue";
             break;
-        case 37: // esquerda
+        case 64: // A - attack
             break;
         case 37: // esquerda
             break;
