@@ -1,10 +1,12 @@
 class Territory {
-    constructor(name, owner, ownerColor, neighbors){
+    constructor(name, owner, ownerColor, neighbors, x, y){
         this.name = name;
         this.owner = owner;
         this.ownerColor = ownerColor;
         this.numberOfUnits = 1;
         this.neighbors = neighbors;
+        this.x = x;
+        this.y = y;
     }
 
     owner() {

@@ -1,6 +1,6 @@
 class Board {
     constructor() {
-        this.territories = [{name: "US", armyColor: "black"}];
+        this.territories = [];
         this.totalTerritories = this.territories.length;
     }
 
@@ -25,4 +25,6 @@ class Board {
             }
         },0));
     }
-}
+};
+
+const board = new Board();
