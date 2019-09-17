@@ -15,6 +15,7 @@ const engine = () => {
             break;
         case "map":
             canvas.drawFullBackground("../../src/images/map.png");
+            canvas.drawMap(board.getTerritorries());
             break;
     };
     canvas.drawBorder();

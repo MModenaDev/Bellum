@@ -53,4 +53,16 @@ class drawCanvas {
     setCanvasHeight(h = 640) {
         this.canvas.height = h;
     }
+
+    drawMap(mapArray) {
+        mapArray.forEach(territory => {
+            this.ctx.beginPath();
+            this.ctx.fillStyle = territory.ownerColor;
+            this.ctx.fillRect(territory.x, territory.y, 42, 42);
+            this.ctx.fillStyle = "white";
+            this.ctx.font = "42px Pixel";
+            this.ctx.fillText(territory.numberOfUnits, territory.x+10, territory.y+30);
+            this.ctx.closePath();
+        });
+    }
 }
