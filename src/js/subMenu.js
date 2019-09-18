@@ -62,10 +62,41 @@ class SubMenu {
         colorText.classList.toggle("subMenu__paragraph");
         colorText.innerHTML = "The first step is to choose the color of your army. Pick below:";
         this.subMenu.appendChild(colorText);
+        let buttonBox = document.createElement("div");
+        buttonBox.style.display = "flex";
+        buttonBox.style.justifyContent = "space-around";
+        this.subMenu.appendChild(buttonBox);
         colors.forEach((elem) => {
             let colorButton = document.createElement("div");
             colorButton.classList.add("subMenu__paragraph--color");
-            this.subMenu.appendChild(colorText);
+            colorButton.innerHTML = elem;
+            buttonBox.appendChild(colorButton);
+            colorButton.onclick = () => {
+                selectedColor = elem;
+                this.clear();
+                this.chooseLocation();
+            };
+        });
+    }
+
+
+    chooseLocation() {
+        let locationText = document.createElement("p");
+        locationText.classList.toggle("subMenu__paragraph");
+        locationText.innerHTML = "Now choose one of the starting locations:";
+        this.subMenu.appendChild(locationText);
+        let buttonBox = document.createElement("div");
+        buttonBox.style.display = "flex";
+        buttonBox.style.justifyContent = "space-around";
+        this.subMenu.appendChild(buttonBox);
+        board.getTerritorries().forEach((elem) => {
+            let locationButton = document.createElement("div");
+            locationButton.classList.add("subMenu__paragraph--color");
+            locationButton.innerHTML = elem.name;
+            buttonBox.appendChild(locationButton);
+            locationButton.onclick = () => {
+                elem.newOwner("Player");
+            };
         });
     }
 }

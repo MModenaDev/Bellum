@@ -50,3 +50,12 @@
 .subMenu__paragraph {
     margin: 10px;
 }
+
+.subMenu__paragraph--color {
+    padding: 10px 20px;
+}
+
+.subMenu__paragraph--color:hover {
+    background-color: black;
+    color: white;
+}

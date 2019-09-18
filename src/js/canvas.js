@@ -31,10 +31,10 @@ class drawCanvas {
     }
 
     drawPill(pill) {
-        if(pill === "red"){
+        if (pill === "red") {
             this.ctx.beginPath();
             this.ctx.fillStyle = pill;
-            this.ctx.fillRect(250,135,135,50);
+            this.ctx.fillRect(250, 135, 135, 50);
             this.ctx.fillStyle = "white";
             this.ctx.font = "70px Pixel";
             this.ctx.fillText("REAL", 275, 180);
@@ -42,7 +42,7 @@ class drawCanvas {
         } else {
             this.ctx.beginPath();
             this.ctx.fillStyle = pill;
-            this.ctx.fillRect(585,135,135,50);
+            this.ctx.fillRect(585, 135, 135, 50);
             this.ctx.fillStyle = "white";
             this.ctx.font = "70px Pixel";
             this.ctx.fillText("FUN", 615, 180);
@@ -55,14 +55,16 @@ class drawCanvas {
     }
 
     drawMap(mapArray) {
-        mapArray.forEach(territory => {
-            this.ctx.beginPath();
-            this.ctx.fillStyle = territory.ownerColor;
-            this.ctx.fillRect(territory.x, territory.y, 42, 42);
-            this.ctx.fillStyle = "white";
-            this.ctx.font = "42px Pixel";
-            this.ctx.fillText(territory.numberOfUnits, territory.x+10, territory.y+30);
-            this.ctx.closePath();
-        });
+        if (mapStatus){
+            mapArray.forEach(territory => {
+                this.ctx.beginPath();
+                this.ctx.fillStyle = territory.ownerColor;
+                this.ctx.fillRect(territory.x, territory.y, 42, 42);
+                this.ctx.fillStyle = "white";
+                this.ctx.font = "42px Pixel";
+                this.ctx.fillText(territory.numberOfUnits, territory.x + 10, territory.y + 30);
+                this.ctx.closePath();
+            });
+        }
     }
 }
