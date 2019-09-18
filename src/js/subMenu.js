@@ -8,29 +8,27 @@ class SubMenu {
     }
 
     greetings() {
+        let initialGreet = document.createElement("p");
+        initialGreet.classList.toggle("subMenu__paragraph");
+        initialGreet.innerHTML = "Hello player, welcome to Bellum, where every action has a consequence.".toUpperCase();
         let greet1 = document.createElement("p");
         greet1.classList.toggle("subMenu__paragraph");
-        greet1.innerHTML = "Hello player, welcome to Bellum, where every action has a consequence.";
+        greet1.innerHTML = "In this menu you have to choose between the modes REAL and FUN.";
         let greet2 = document.createElement("p");
         greet2.classList.toggle("subMenu__paragraph");
-        greet2.innerHTML = "To choose an action, select the letter that is surrounded by parenthesis and click enter.";
+        greet2.innerHTML = "In the REAL mode you will experience the simulation most close to reality.";
         let greet3 = document.createElement("p");
         greet3.classList.toggle("subMenu__paragraph");
-        greet3.innerHTML = "In this menu you have to choose between the modes (R)EAL and (F)UN.";
-        let greet4 = document.createElement("p");
-        greet4.classList.toggle("subMenu__paragraph");
-        greet4.innerHTML = "In the (R)EAL mode you will experience the simulation most close to reality.";
-        let greet5 = document.createElement("p");
-        greet5.classList.toggle("subMenu__paragraph");
-        greet5.innerHTML = "Contrary to the first one, (F)UN mode is as unrealistic as it's fun and outrageous.";
-        this.subMenu.appendChild(greet1);
-        this.subMenu.appendChild(greet2);
+        greet3.innerHTML = "Contrary to the first one, FUN mode is as unrealistic as it's fun and outrageous.";
+        this.subMenu.appendChild(initialGreet);
         setTimeout(() => {
-            this.clear();
-            this.subMenu.appendChild(greet3);
-            this.subMenu.appendChild(greet4);
-            this.subMenu.appendChild(greet5);
-        }, 10000);
+            if (screen === "menu") {
+                this.clear();
+                this.subMenu.appendChild(greet1);
+                this.subMenu.appendChild(greet2);
+                this.subMenu.appendChild(greet3);
+            }
+        }, 7500);
     }
 
     problem() {
@@ -42,5 +40,27 @@ class SubMenu {
         problem2.innerHTML = "Please choose another mode.";
         this.subMenu.appendChild(problem1);
         this.subMenu.appendChild(problem2);
+    }
+
+    startMenu() {
+        let gamesDescription1 = document.createElement("p");
+        gamesDescription1.classList.toggle("subMenu__paragraph");
+        gamesDescription1.innerHTML = "This games follows the same principles of War, you organize, take decisions and pass the turn.";
+        let gamesDescription2 = document.createElement("p");
+        gamesDescription2.classList.toggle("subMenu__paragraph");
+        gamesDescription2.innerHTML = "Repeat that until there is someone who achieves their secret goal, and there you have it, THE GAME.";
+        this.subMenu.appendChild(gamesDescription1);
+        this.subMenu.appendChild(gamesDescription2);
+        setTimeout(() => {
+            this.clear();
+            this.chooseColor();
+        }, 10000);
+    }
+
+    chooseColor() {
+        let colorText = document.createElement("p");
+        colorText.classList.toggle("subMenu__paragraph");
+        colorText.innerHTML = "The first step is to choose the color of your army. Pick below:";
+        this.subMenu.appendChild(colorText);
     }
 }
