@@ -62,5 +62,10 @@ class SubMenu {
         colorText.classList.toggle("subMenu__paragraph");
         colorText.innerHTML = "The first step is to choose the color of your army. Pick below:";
         this.subMenu.appendChild(colorText);
+        colors.forEach((elem) => {
+            let colorButton = document.createElement("div");
+            colorButton.classList.add("subMenu__paragraph--color");
+            this.subMenu.appendChild(colorText);
+        });
     }
 }
