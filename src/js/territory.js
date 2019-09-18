@@ -13,8 +13,9 @@ class Territory {
         return this.owner;
     }
 
-    newOwner(newOwner) {
+    newOwner(newOwner, newOwnerColor) {
         this.owner =  newOwner;
+        this.ownerColor = newOwnerColor;
     }
 
     sizeOfArmy() {

@@ -73,12 +73,13 @@ class SubMenu {
             buttonBox.appendChild(colorButton);
             colorButton.onclick = () => {
                 selectedColor = elem;
+                enemyColor = colors.pop();
+                if(enemyColor === selectedColor) enemyColor = colors.pop();
                 this.clear();
                 this.chooseLocation();
             };
         });
     }
-
 
     chooseLocation() {
         let locationText = document.createElement("p");
@@ -95,8 +96,23 @@ class SubMenu {
             locationButton.innerHTML = elem.name;
             buttonBox.appendChild(locationButton);
             locationButton.onclick = () => {
-                elem.newOwner("Player");
+                elem.newOwner("Player", selectedColor);
+                let enemyT = board.getTerritorries()[0];
+                if(enemyT.owner === "none") {
+                    enemyT.newOwner("Enemy", enemyColor);
+                } else {
+                    let enemyNewT = board.getTerritorries();
+                    board.getTerritorries()[enemyNewT.length - 1].newOwner("Enemy", enemyColor);
+                }
+                mapStatus = true;
+                this.clear();
+                this.startRounds();
             };
         });
     }
+
+    startRounds() {
+
+    }
+
 }
