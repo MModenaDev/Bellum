@@ -28,7 +28,7 @@ class SubMenu {
                 this.subMenu.appendChild(greet2);
                 this.subMenu.appendChild(greet3);
             }
-        }, 7500);
+        }, 5000);
     }
 
     problem() {
@@ -54,7 +54,7 @@ class SubMenu {
         setTimeout(() => {
             this.clear();
             this.chooseColor();
-        }, 10000);
+        }, 7500);
     }
 
     chooseColor() {
@@ -69,12 +69,12 @@ class SubMenu {
         colors.forEach((elem) => {
             let colorButton = document.createElement("div");
             colorButton.classList.add("subMenu__paragraph--color");
-            colorButton.innerHTML = elem;
+            colorButton.innerHTML = elem.toUpperCase();
             buttonBox.appendChild(colorButton);
             colorButton.onclick = () => {
                 selectedColor = elem;
                 enemyColor = colors.pop();
-                if(enemyColor === selectedColor) enemyColor = colors.pop();
+                if (enemyColor === selectedColor) enemyColor = colors.pop();
                 this.clear();
                 this.chooseLocation();
             };
@@ -98,7 +98,7 @@ class SubMenu {
             locationButton.onclick = () => {
                 elem.newOwner("Player", selectedColor);
                 let enemyT = board.getTerritorries()[0];
-                if(enemyT.owner === "none") {
+                if (enemyT.owner === "none") {
                     enemyT.newOwner("Enemy", enemyColor);
                 } else {
                     let enemyNewT = board.getTerritorries();
@@ -112,7 +112,148 @@ class SubMenu {
     }
 
     startRounds() {
-
+        let playerExplanation1 = document.createElement("p");
+        playerExplanation1.classList.toggle("subMenu__paragraph");
+        playerExplanation1.innerHTML = "With that out of the way we can start the rounds.";
+        let playerExplanation2 = document.createElement("p");
+        playerExplanation2.classList.toggle("subMenu__paragraph");
+        playerExplanation2.innerHTML = "It will have three fases: DEPLOY, ATTACK, and MOVE.";
+        let playerExplanation3 = document.createElement("p");
+        playerExplanation3.classList.toggle("subMenu__paragraph");
+        playerExplanation3.innerHTML = "It goes back and forth until someone is annihilated.";
+        this.subMenu.appendChild(playerExplanation1);
+        this.subMenu.appendChild(playerExplanation2);
+        this.subMenu.appendChild(playerExplanation3);
+        setTimeout(() => {
+            this.clear();
+            this.deploy();
+        }, 7500);
     }
 
+    deploy() {
+        let reinforcements = 2 + board.getTotalForArmy(selectedColor);
+        let deployText = document.createElement("p");
+        deployText.classList.toggle("subMenu__paragraph");
+        deployText.innerHTML = `You have ${reinforcements} reinforcements.`;
+        this.subMenu.appendChild(deployText);
+        let buttonBox = document.createElement("div");
+        buttonBox.style.display = "flex";
+        buttonBox.style.justifyContent = "space-around";
+        this.subMenu.appendChild(buttonBox);
+        let deployButton = document.createElement("div");
+        deployButton.classList.add("subMenu__paragraph--color");
+        deployButton.innerHTML = "DEPLOY";
+        buttonBox.appendChild(deployButton);
+        deployButton.onclick = () => {
+            let lMenu = document.getElementsByClassName("lateralMenu")[0];
+            lMenu.innerHTML = "";
+            lMenu.style.display = 'block';
+            board.getTerritorries().forEach((territory) => {
+                if (territory.owner === "Player") {
+                    let territoryBox = document.createElement("div");
+                    territoryBox.style.display = "flex";
+                    territoryBox.style.justifyContent = "space-between";
+                    lMenu.appendChild(territoryBox);
+                    let minus = document.createElement("div");
+                    let landName = document.createElement("div");
+                    let plus = document.createElement("div");
+                    minus.classList.toggle("lateralMenu__sign");
+                    landName.classList.toggle("lateralMenu__name");
+                    plus.classList.toggle("lateralMenu__sign");
+                    minus.innerHTML = "-";
+                    landName.innerHTML = territory.name;
+                    plus.innerHTML = "+";
+                    territoryBox.appendChild(minus);
+                    territoryBox.appendChild(landName);
+                    territoryBox.appendChild(plus);
+                    minus.onclick = () => {
+                        if (territory.numberOfUnits > 1) {
+                            territory.numberOfUnits -= 1;
+                            reinforcements += 1;
+                        }
+                    };
+                    plus.onclick = () => {
+                        if (reinforcements > 0) {
+                            territory.numberOfUnits += 1;
+                            reinforcements -= 1;
+                        }
+                    };
+                }
+            })
+
+        };
+        let doneButton = document.createElement("div");
+        doneButton.classList.add("subMenu__paragraph--color");
+        doneButton.innerHTML = "DONE";
+        buttonBox.appendChild(doneButton);
+        doneButton.onclick = () => {
+            let lMenu = document.getElementsByClassName("lateralMenu")[0];
+            lMenu.style.display = 'none';
+            lMenu.innerHTML = "";
+            this.clear();
+            this.attack();
+        };
+    }
+
+    attack() {
+        let attackText = document.createElement("p");
+        attackText.classList.toggle("subMenu__paragraph");
+        attackText.innerHTML = "It's your turn to attack.";
+        this.subMenu.appendChild(attackText);
+        let buttonBox = document.createElement("div");
+        buttonBox.style.display = "flex";
+        buttonBox.style.justifyContent = "space-around";
+        this.subMenu.appendChild(buttonBox);
+        let attackButton = document.createElement("div");
+        attackButton.classList.add("subMenu__paragraph--color");
+        attackButton.innerHTML = "ATTACK";
+        buttonBox.appendChild(attackButton);
+        attackButton.onclick = () => {
+            let lMenu = document.getElementsByClassName("lateralMenu")[0];
+            lMenu.style.display = 'block';
+            board.getTerritorries().forEach((territory) => {
+                if (territory.owner === "Player") {
+                    territory.neighbors.forEach((neighbor) => {
+                        if (neighbor.owner != "Player") {
+                            let attackBox = document.createElement("div");
+                            attackBox.style.display = "flex";
+                            attackBox.style.justifyContent = "space-around";
+                            lMenu.appendChild(attackBox);
+                            let attackRoute = document.createElement("div");
+                            attackRoute.classList.toggle("lateralMenu__sign");
+                            attackRoute.innerHTML = `${territory.name} >> ${neighbor}`.toUpperCase();
+                            attackBox.appendChild(attackRoute);
+                            attackRoute.onclick = () => {
+                                let defenseRoll = [];
+                                let attackRoll = [];
+                                for(let i = 0; i<territory.numberOfUnits; i += 1){
+                                    attackRoll += Math.floor(Math.random() * 6) + 1;
+                                let en = board.getTerritorries.filter((elem) => (elem.name === neighbor));
+                                for(let i = 0; i<en[0].numberOfUnits; i += 1){
+                                    attackRoll += Math.floor(Math.random() * 6) + 1;
+                                }
+
+                            }
+                        }
+                    })
+                }
+            })
+
+        };
+        let doneButton = document.createElement("div");
+        doneButton.classList.add("subMenu__paragraph--color");
+        doneButton.innerHTML = "DONE";
+        buttonBox.appendChild(doneButton);
+        doneButton.onclick = () => {
+            let lMenu = document.getElementsByClassName("lateralMenu")[0];
+            lMenu.style.display = 'none';
+            lMenu.innerHTML = "";
+            this.clear();
+            this.move();
+        };
+    }
+
+    move() {
+
+    }
 }

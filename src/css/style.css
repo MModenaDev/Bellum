@@ -39,14 +39,6 @@
     margin-top: 5px;
 }
 
-.lateralMenu {
-    display: none;
-    margin-left: 10px;
-    width: 300px;
-    padding: 10px;
-    border: 10px solid black;
-}
-
 .subMenu__paragraph {
     margin: 10px;
 }
@@ -56,6 +48,27 @@
 }
 
 .subMenu__paragraph--color:hover {
+    background-color: black;
+    color: white;
+}
+
+.lateralMenu {
+    display: none;
+    margin-left: 10px;
+    width: 300px;
+    padding: 10px;
+    border: 10px solid black;
+}
+
+.lateralMenu__name {
+    padding: 10px 20px;
+}
+
+.lateralMenu__sign {
+    padding: 10px 20px;
+}
+
+.lateralMenu__sign:hover {
     background-color: black;
     color: white;
 }

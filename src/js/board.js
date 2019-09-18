@@ -17,13 +17,13 @@ class Board {
     }
 
     getTotalForArmy(armyColor) {
-        return this.territories.reduce((sum, territory => {
+        return this.territories.reduce((sum, territory) => {
             if(territory.ownerColor === armyColor){
-                sum + 1;
+                return sum + 1;
             } else {
-                sum + 0;
+                return sum + 0;
             }
-        },0));
+        },0);
     }
 };
 
