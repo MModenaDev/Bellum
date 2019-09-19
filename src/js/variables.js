@@ -6,6 +6,6 @@ let mouseX = 0;
 
 let selectedColor = "None";
 let enemyColor = "None";
-let colors = ["green", "red", "blue", "yellow"];
+let colors = ["green", "red", "blue", "orange"];
 
 let mapStatus = false;

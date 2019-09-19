@@ -210,6 +210,7 @@ class SubMenu {
         buttonBox.appendChild(attackButton);
         attackButton.onclick = () => {
             let lMenu = document.getElementsByClassName("lateralMenu")[0];
+            lMenu.innerHTML = "";
             lMenu.style.display = 'block';
             board.getTerritorries().forEach((territory) => {
                 if (territory.owner === "Player") {
@@ -224,15 +225,41 @@ class SubMenu {
                             attackRoute.innerHTML = `${territory.name} >> ${neighbor}`.toUpperCase();
                             attackBox.appendChild(attackRoute);
                             attackRoute.onclick = () => {
-                                let defenseRoll = [];
-                                let attackRoll = [];
-                                for(let i = 0; i<territory.numberOfUnits; i += 1){
-                                    attackRoll += Math.floor(Math.random() * 6) + 1;
-                                let en = board.getTerritorries.filter((elem) => (elem.name === neighbor));
-                                for(let i = 0; i<en[0].numberOfUnits; i += 1){
-                                    attackRoll += Math.floor(Math.random() * 6) + 1;
+                                let en = board.getTerritorries().filter((elem) => (elem.name === neighbor));
+                                if(en[0].owner != "Player") {
+                                    let defenseRoll = [];
+                                    let attackRoll = [];
+                                    for(let i = 1; i<territory.numberOfUnits; i += 1){
+                                        attackRoll.push(Math.floor(Math.random() * 6) + 1);
+                                    }
+                                    for(let i = 0; i<en[0].numberOfUnits; i += 1){
+                                        defenseRoll.push(Math.floor(Math.random() * 6) + 1);
+                                    }
+                                    attackRoll.sort((a,b) => b-a);
+                                    defenseRoll.sort((a,b) => b-a);
+                                    let resultArray = [];
+                                    if(attackRoll.length >= defenseRoll.length){
+                                        defenseRoll.forEach((elem, index) => {
+                                            resultArray.push(elem-attackRoll[index]);
+                                        });
+                                    } else {
+                                        attackRoll.forEach((elem, index) => {
+                                            resultArray.push(defenseRoll[index]-elem);
+                                        });
+                                    }
+                                    resultArray.forEach((elem) => {
+                                        if(elem >= 0){
+                                            territory.numberOfUnits -= 1;
+                                        } else {
+                                            en[0].numberOfUnits -= 1;
+                                        }
+                                    });
+                                    if(en[0].numberOfUnits <= 0) {
+                                        en[0].newOwner("Player", selectedColor);
+                                        territory.numberOfUnits -= 1;
+                                        en[0].numberOfUnits = 1;
+                                    }
                                 }
-
                             }
                         }
                     })
@@ -254,6 +281,144 @@ class SubMenu {
     }
 
     move() {
+        let dislocatedArmies = 0;
+        let moveText = document.createElement("p");
+        moveText.classList.toggle("subMenu__paragraph");
+        moveText.innerHTML = `Now that you're done with your attacks, allocate them to where you think it's tactically advantageous.`;
+        this.subMenu.appendChild(moveText);
+        let buttonBox = document.createElement("div");
+        buttonBox.style.display = "flex";
+        buttonBox.style.justifyContent = "space-around";
+        this.subMenu.appendChild(buttonBox);
+        let moveButton = document.createElement("div");
+        moveButton.classList.add("subMenu__paragraph--color");
+        moveButton.innerHTML = "MOVE";
+        buttonBox.appendChild(moveButton);
+        moveButton.onclick = () => {
+            let lMenu = document.getElementsByClassName("lateralMenu")[0];
+            lMenu.innerHTML = "";
+            lMenu.style.display = 'block';
+            board.getTerritorries().forEach((territory) => {
+                if (territory.owner === "Player") {
+                    let territoryBox = document.createElement("div");
+                    territoryBox.style.display = "flex";
+                    territoryBox.style.justifyContent = "space-between";
+                    lMenu.appendChild(territoryBox);
+                    let minus = document.createElement("div");
+                    let landName = document.createElement("div");
+                    let plus = document.createElement("div");
+                    minus.classList.toggle("lateralMenu__sign");
+                    landName.classList.toggle("lateralMenu__name");
+                    plus.classList.toggle("lateralMenu__sign");
+                    minus.innerHTML = "-";
+                    landName.innerHTML = territory.name;
+                    plus.innerHTML = "+";
+                    territoryBox.appendChild(minus);
+                    territoryBox.appendChild(landName);
+                    territoryBox.appendChild(plus);
+                    minus.onclick = () => {
+                        if (territory.numberOfUnits > 1) {
+                            territory.numberOfUnits -= 1;
+                            dislocatedArmies += 1;
+                        }
+                    };
+                    plus.onclick = () => {
+                        if (dislocatedArmies > 0) {
+                            territory.numberOfUnits += 1;
+                            dislocatedArmies -= 1;
+                        }
+                    };
+                }
+            })
 
+        };
+        let doneButton = document.createElement("div");
+        doneButton.classList.add("subMenu__paragraph--color");
+        doneButton.innerHTML = "DONE";
+        buttonBox.appendChild(doneButton);
+        doneButton.onclick = () => {
+            let lMenu = document.getElementsByClassName("lateralMenu")[0];
+            lMenu.style.display = 'none';
+            lMenu.innerHTML = "";
+            this.clear();
+            this.enemieAttack();
+        };
+    }
+
+    enemieAttack() {
+        let enemyText = document.createElement("p");
+        enemyText.classList.toggle("subMenu__paragraph");
+        enemyText.innerHTML = "Enemy Playing ...";
+        this.subMenu.appendChild(enemyText);
+        setTimeout(() => {
+            board.getTerritorries().forEach((territory) => {
+                let reinforcements = 2 + board.getTotalForArmy(enemyColor);
+                if (territory.owner === "Enemy" && reinforcements > 0) {
+                    territory.neighbors.forEach((neighbor) => {
+                        let en = board.getTerritorries().filter((elem) => (elem.name === neighbor));
+                        if(en[0].owner != "Enemy") {
+                            territory.numberOfUnits += reinforcements;
+                            reinforcements = 0;
+                        }
+                    }
+                )};
+                if (territory.owner === "Enemy" && territory.numberOfUnits > 1) {
+                    territory.neighbors.forEach((neighbor) => {
+                        let en = board.getTerritorries().filter((elem) => (elem.name === neighbor));
+                        if(en[0].owner != "Enemy") {
+                            let defenseRoll = [];
+                            let attackRoll = [];
+                            for(let i = 1; i<territory.numberOfUnits; i += 1){
+                                attackRoll.push(Math.floor(Math.random() * 6) + 1);
+                            }
+                            for(let i = 0; i<en[0].numberOfUnits; i += 1){
+                                defenseRoll.push(Math.floor(Math.random() * 6) + 1);
+                            }
+                            attackRoll.sort((a,b) => b-a);
+                            defenseRoll.sort((a,b) => b-a);
+                            let resultArray = [];
+                            if(attackRoll.length >= defenseRoll.length){
+                                defenseRoll.forEach((elem, index) => {
+                                    resultArray.push(elem-attackRoll[index]);
+                                });
+                            } else {
+                                attackRoll.forEach((elem, index) => {
+                                    resultArray.push(defenseRoll[index]-elem);
+                                });
+                            }
+                            console.log(resultArray);
+                            
+                            resultArray.forEach((elem) => {
+                                if(elem >= 0){
+                                    territory.numberOfUnits -= 1;
+                                } else {
+                                    en[0].numberOfUnits -= 1;
+                                }
+                            });
+                            if(en[0].numberOfUnits <= 0) {
+                                en[0].newOwner("Enemy", enemyColor);
+                                let moveArmy = territory.numberOfUnits - 1;
+                                territory.numberOfUnits = 1;
+                                en[0].numberOfUnits = moveArmy;
+                            }
+                        }
+                    });
+                }
+            });
+            this.checkConditions();
+        }, 5000);
+    }
+
+    checkConditions() {
+        if(board.getTotalForArmy(selectedColor) === 0) {
+            document.getElementsByClassName("subMenu")[0].style.display = 'none';
+            screen = "defeat";
+        } else if (board.getTotalForArmy(enemyColor) === 0) {
+            document.getElementsByClassName("subMenu")[0].style.display = 'none';
+            screen = "victory";
+        } else {
+            this.clear();
+            this.deploy();
+        }
     }
 }
