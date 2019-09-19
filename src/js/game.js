@@ -5,9 +5,6 @@ song.loop = true;
 song.volume = 0.25;
 
 window.onload = function () {
-    let song = new this.Audio("./src/songs/theme-song.mp3");
-    song.loop = true;
-    song.volume = 0.25;
     song.play();
 
     document.getElementsByClassName("start")[0].onclick = function () {
