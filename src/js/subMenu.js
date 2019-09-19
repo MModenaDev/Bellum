@@ -1,6 +1,7 @@
 class SubMenu {
     constructor() {
         this.subMenu = document.getElementsByClassName("subMenu")[0];
+        this.clickSound = new Audio("./src/songs/click.mp3");
     };
 
     clear() {
@@ -72,6 +73,7 @@ class SubMenu {
             colorButton.innerHTML = elem.toUpperCase();
             buttonBox.appendChild(colorButton);
             colorButton.onclick = () => {
+                this.clickSound.play();
                 selectedColor = elem;
                 enemyColor = colors.pop();
                 if (enemyColor === selectedColor) enemyColor = colors.pop();
@@ -96,6 +98,7 @@ class SubMenu {
             locationButton.innerHTML = elem.name;
             buttonBox.appendChild(locationButton);
             locationButton.onclick = () => {
+                this.clickSound.play();
                 elem.newOwner("Player", selectedColor);
                 let enemyT = board.getTerritorries()[0];
                 if (enemyT.owner === "none") {
@@ -145,6 +148,7 @@ class SubMenu {
         deployButton.innerHTML = "DEPLOY";
         buttonBox.appendChild(deployButton);
         deployButton.onclick = () => {
+            this.clickSound.play();
             let lMenu = document.getElementsByClassName("lateralMenu")[0];
             lMenu.innerHTML = "";
             lMenu.style.display = 'block';
@@ -167,12 +171,14 @@ class SubMenu {
                     territoryBox.appendChild(landName);
                     territoryBox.appendChild(plus);
                     minus.onclick = () => {
+                        this.clickSound.play();
                         if (territory.numberOfUnits > 1) {
                             territory.numberOfUnits -= 1;
                             reinforcements += 1;
                         }
                     };
                     plus.onclick = () => {
+                        this.clickSound.play();
                         if (reinforcements > 0) {
                             territory.numberOfUnits += 1;
                             reinforcements -= 1;
@@ -187,6 +193,7 @@ class SubMenu {
         doneButton.innerHTML = "DONE";
         buttonBox.appendChild(doneButton);
         doneButton.onclick = () => {
+            this.clickSound.play();
             let lMenu = document.getElementsByClassName("lateralMenu")[0];
             lMenu.style.display = 'none';
             lMenu.innerHTML = "";
@@ -209,6 +216,7 @@ class SubMenu {
         attackButton.innerHTML = "ATTACK";
         buttonBox.appendChild(attackButton);
         attackButton.onclick = () => {
+            this.clickSound.play();
             let lMenu = document.getElementsByClassName("lateralMenu")[0];
             lMenu.innerHTML = "";
             lMenu.style.display = 'block';
@@ -225,6 +233,7 @@ class SubMenu {
                             attackRoute.innerHTML = `${territory.name} >> ${neighbor}`.toUpperCase();
                             attackBox.appendChild(attackRoute);
                             attackRoute.onclick = () => {
+                                this.clickSound.play();
                                 let en = board.getTerritorries().filter((elem) => (elem.name === neighbor));
                                 if(en[0].owner != "Player") {
                                     debugger;
@@ -277,6 +286,7 @@ class SubMenu {
         doneButton.innerHTML = "DONE";
         buttonBox.appendChild(doneButton);
         doneButton.onclick = () => {
+            this.clickSound.play();
             let lMenu = document.getElementsByClassName("lateralMenu")[0];
             lMenu.style.display = 'none';
             lMenu.innerHTML = "";
@@ -300,6 +310,7 @@ class SubMenu {
         moveButton.innerHTML = "MOVE";
         buttonBox.appendChild(moveButton);
         moveButton.onclick = () => {
+            this.clickSound.play();
             let lMenu = document.getElementsByClassName("lateralMenu")[0];
             lMenu.innerHTML = "";
             lMenu.style.display = 'block';
@@ -322,12 +333,14 @@ class SubMenu {
                     territoryBox.appendChild(landName);
                     territoryBox.appendChild(plus);
                     minus.onclick = () => {
+                        this.clickSound.play();
                         if (territory.numberOfUnits > 1) {
                             territory.numberOfUnits -= 1;
                             dislocatedArmies += 1;
                         }
                     };
                     plus.onclick = () => {
+                        this.clickSound.play();
                         if (dislocatedArmies > 0) {
                             territory.numberOfUnits += 1;
                             dislocatedArmies -= 1;
@@ -342,6 +355,7 @@ class SubMenu {
         doneButton.innerHTML = "DONE";
         buttonBox.appendChild(doneButton);
         doneButton.onclick = () => {
+            this.clickSound.play();
             let lMenu = document.getElementsByClassName("lateralMenu")[0];
             lMenu.style.display = 'none';
             lMenu.innerHTML = "";
@@ -416,9 +430,13 @@ class SubMenu {
 
     checkConditions() {
         if(board.getTotalForArmy(selectedColor) === 0) {
+            let explosion = new Audio("./src/songs/explosion.mp3");
+            explosion.play();
             document.getElementsByClassName("subMenu")[0].style.display = 'none';
             screen = "defeat";
         } else if (board.getTotalForArmy(enemyColor) === 0) {
+            let win = new Audio("./src/songs/win.mp3");
+            win.play();
             document.getElementsByClassName("subMenu")[0].style.display = 'none';
             screen = "victory";
         } else {
