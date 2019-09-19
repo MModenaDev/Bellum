@@ -2,6 +2,9 @@ class SubMenu {
     constructor() {
         this.subMenu = document.getElementsByClassName("subMenu")[0];
         this.clickSound = new Audio("./src/songs/click.mp3");
+        this.explosion = new Audio("./src/songs/explosion.mp3");
+        this.win = new Audio("./src/songs/win.mp3");
+
     };
 
     clear() {
@@ -430,13 +433,11 @@ class SubMenu {
 
     checkConditions() {
         if(board.getTotalForArmy(selectedColor) === 0) {
-            let explosion = new Audio("./src/songs/explosion.mp3");
-            explosion.play();
+            this.explosion.play();
             document.getElementsByClassName("subMenu")[0].style.display = 'none';
             screen = "defeat";
         } else if (board.getTotalForArmy(enemyColor) === 0) {
-            let win = new Audio("./src/songs/win.mp3");
-            win.play();
+            this.win.play();
             document.getElementsByClassName("subMenu")[0].style.display = 'none';
             screen = "victory";
         } else {
