@@ -55,7 +55,7 @@ class drawCanvas {
     }
 
     drawMap(mapArray) {
-        if (mapStatus){
+        if (mapStatus) {
             mapArray.forEach(territory => {
                 this.ctx.beginPath();
                 this.ctx.fillStyle = territory.ownerColor;
@@ -66,5 +66,17 @@ class drawCanvas {
                 this.ctx.closePath();
             });
         }
+    }
+
+    drawVictory() {
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "400px Pixel";
+        this.ctx.fillText("VICTORY", 50, 600);
+    }
+
+    drawDefeat() {
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "420px Pixel";
+        this.ctx.fillText("DEFEAT", 100, 600);
     }
 }

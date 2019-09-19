@@ -9,9 +9,11 @@ const engine = () => {
             break;
         case "victory":
             canvas.drawSmallBackground("./src/images/flag.png");
+            canvas.drawVictory();
             break;
         case "defeat":
             canvas.drawSmallBackground("./src/images/explosion.png");
+            canvas.drawDefeat();
             break;
         case "map":
             canvas.drawFullBackground("./src/images/map.png");

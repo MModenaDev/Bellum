@@ -227,12 +227,17 @@ class SubMenu {
                             attackRoute.onclick = () => {
                                 let en = board.getTerritorries().filter((elem) => (elem.name === neighbor));
                                 if(en[0].owner != "Player") {
+                                    debugger;
                                     let defenseRoll = [];
                                     let attackRoll = [];
-                                    for(let i = 1; i<territory.numberOfUnits; i += 1){
+                                    let playerLimiter = 4;
+                                    let enemyLimiter = 3;
+                                    if(territory.numberOfUnits < 3) playerLimiter = territory.numberOfUnits;
+                                    if(en[0].numberOfUnits < 3) enemyLimiter = en[0].numberOfUnits;
+                                    for(let i = 1; i<playerLimiter; i += 1){
                                         attackRoll.push(Math.floor(Math.random() * 6) + 1);
                                     }
-                                    for(let i = 0; i<en[0].numberOfUnits; i += 1){
+                                    for(let i = 0; i<enemyLimiter; i += 1){
                                         defenseRoll.push(Math.floor(Math.random() * 6) + 1);
                                     }
                                     attackRoll.sort((a,b) => b-a);
@@ -406,7 +411,7 @@ class SubMenu {
                 }
             });
             this.checkConditions();
-        }, 5000);
+        }, 2500);
     }
 
     checkConditions() {
